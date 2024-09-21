@@ -1,0 +1,12 @@
+ip address add 10.0.0.1/16 dev eth0
+ip address add 100.0.0.1/28 dev eth1
+ip route add 1.0.0.0/24 via 100.0.0.3 dev eth1
+ip route add 11.0.0.0/24 via 100.0.0.3 dev eth1
+
+iptables-legacy -A FORWARD -i eth1 -o eth0 -j DROP
+iptables-legacy -A FORWARD -i eth1 -o eth0 -m state --state ESTABLISHED -j ACCEPT
+
+iptables-legacy -A INPUT -i eth1 -m state --state ESTABLISHED -j ACCEPT
+iptables-legacy -A INPUT -i eth1 -j DROP
+
+iptables-legacy -t nat -A POSTROUTING -s 10.0.0.0/16 -j MASQUERADE
