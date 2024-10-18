@@ -1,4 +1,4 @@
 ip address add 11.1.0.1/24 dev eth0
-ip address add 200.0.0.10/30 dev eth1
-ip route add 11.1.1.0/24 via 200.0.0.9 dev eth1
-ip route add default via 200.0.0.9 dev eth1
+ip address add 1.2.1.2/30 dev eth1
+ip route add default via 1.2.1.1 dev eth1
+systemctl start frr
