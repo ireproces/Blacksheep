@@ -4,6 +4,7 @@ Guide:
 1. clone the repository into a local directory
 2. navigate to the directory /lab and execute the command `kathara lstart` from within
 3. when all the hosts are up, access the address `localhost:8888` from your browser
-4. use the Pathfinder plugin to scan domains or hosts,
+4. login as red user - username and password are specified in the file `/lab/server/caldera/conf/local.yml`
+5. use the Pathfinder plugin to scan domains or hosts,
    or execute the command `nmap -sV --script vulners IP_ADDR -v --dns-servers 8.8.8.8` from the terminal of the server (lab host)
-5. work in progess...
+6. work in progess...
