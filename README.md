@@ -2,14 +2,17 @@
 
 Blacksheep was designed to analyze the most common vulnerabilities affecting standard services active on network hosts.
 
-It utilizes the [MITRE Caldera framework](https://github.com/mitre/caldera), combined with the [Pathfinder plugin](https://github.com/center-for-threat-informed-defense/caldera_pathfinder), to collect and process the acquired information.
+It utilizes the [MITRE Caldera framework](https://github.com/mitre/caldera), combined with the [Pathfinder plugin](https://github.com/center-for-threat-informed-defense/caldera_pathfinder), to collect and process the acquired data.
 
-The project includes a laboratory developed using the [Kathara tool](https://github.com/KatharaFramework/Kathara), within which the Caldera server and a series of other network hosts are active for testing purposes.
+The project includes a lab developed using the [Kathara tool](https://github.com/KatharaFramework/Kathara), within which the Caldera server and a series of other hosts are active for testing purposes.
 
-## Network topology and <host,service> table
+## Network topology and service table
 
 ![](rete.jpeg)
 
+|---------|-----------|------------|------------|---------------------------------------------------------------------------|
+|                                              <HOST,SERVICE> TABLE                                                         |
+|---------|-----------|------------|------------|---------------------------------------------------------------------------|
 | Host    | Service   | Version    | Ports      | Source                                                                    |
 |---------|-----------|------------|------------|---------------------------------------------------------------------------|
 | pc1     | Tomcat    | 9.0.30     | 8080,8009  | [Ref](https://github.com/vulhub/vulhub/tree/master/tomcat/CVE-2020-1938)  |
@@ -18,6 +21,7 @@ The project includes a laboratory developed using the [Kathara tool](https://git
 | pc4     |  ...      |     ...    |    ...     |                    ...                                                    |
 | pc5     |  ...      |     ...    |    ...     |                    ...                                                    |
 | pc6     |  ...      |     ...    |    ...     |                    ...                                                    |
+|---------|-----------|------------|------------|---------------------------------------------------------------------------|
 
 ## Installation guide
 
@@ -35,7 +39,7 @@ The project includes a laboratory developed using the [Kathara tool](https://git
 
 4. access the address `http://localhost:8888` from your default browser and login as red user - username and password are specified in the file `/lab/server/caldera/conf/local.yml`
 
-5. select the Pathfinder plugin and fill in the fields as follows:  
+5. select the Pathfinder plugin and fill the fields as follows:  
     - Select a scanner: nmap  
     - Target specification: IP address or subnet to scan (e.g. 11.1.0.0/24)  
     - Scanner script: [nmap-vulners](https://github.com/vulnersCom/nmap-vulners/tree/bbf53dd085f8d810921ee00ccf85bdb329d59514)
