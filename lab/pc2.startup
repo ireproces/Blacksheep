@@ -3,8 +3,3 @@ ip route add default via 11.1.1.1 dev eth0
 
 ip route add 10.0.0.0/24 via 11.1.1.1 dev eth0
 ip route add 11.1.0.0/24 via 11.1.1.1 dev eth0
-
-systemctl start nginx
-systemctl start smb
-systemctl start rpcbind
-systemctl start nfs-server
