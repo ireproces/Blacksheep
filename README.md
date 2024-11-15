@@ -10,8 +10,6 @@ The project includes a lab developed using the [Kathara tool](https://github.com
 
 ![](rete.jpeg)
 
-|                                              <HOST,SERVICE> TABLE                                                         |
-|---------|-----------|------------|------------|---------------------------------------------------------------------------|
 | Host    | Service   | Version    | Ports      | Source                                                                    |
 |---------|-----------|------------|------------|---------------------------------------------------------------------------|
 | pc1     | Tomcat    | 9.0.30     | 8080,8009  | [Ref](https://github.com/vulhub/vulhub/tree/master/tomcat/CVE-2020-1938)  |
