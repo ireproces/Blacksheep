@@ -10,20 +10,20 @@ The project includes a lab developed using the [Kathara tool](https://github.com
 
 ![](rete.jpeg)
 
-| Host    | Service   | Version    | Ports                  | Source                                                                      |
-|---------|-----------|------------|------------------------|-----------------------------------------------------------------------------|
-| pc1     | Tomcat    | 9.0.30     | 8080,8009              | [Ref](https://github.com/vulhub/vulhub/tree/master/tomcat/CVE-2020-1938)    |
-| pc2     | libssh    | 0.8.1      | 2222,22                | [Ref](https://github.com/vulhub/vulhub/tree/master/libssh/CVE-2018-10933)   |
-| pc3     | openssl   | 7.6        | 22                     | [Ref](https://vulners.com/cve/CVE-2018-15473)                               |
-| pc4     | saltstack | 3002       | 8000,2222,22,4505,4506 | [Ref](https://github.com/vulhub/vulhub/tree/master/saltstack/CVE-2020-16846)|
-| pc5     |  ...      |     ...    |    ...                 |                    ...                                                      |
-| pc6     |  ...      |     ...    |    ...                 |                    ...                                                      |
+| Host | Service   | Version    | Ports                  | Source                                                                      |
+|------|-----------|------------|------------------------|-----------------------------------------------------------------------------|
+| pc1  | Tomcat    | 9.0.30     | 8080,8009              | [Ref](https://github.com/vulhub/vulhub/tree/master/tomcat/CVE-2020-1938)    |
+| pc2  | libssh    | 0.8.1      | 2222,22                | [Ref](https://github.com/vulhub/vulhub/tree/master/libssh/CVE-2018-10933)   |
+| pc3  | openssl   | 7.6        | 22                     | [Ref](https://vulners.com/cve/CVE-2018-15473)                               |
+| pc4  | saltstack | 3.0.2      | 8000,2222,22,4505,4506 | [Ref](https://github.com/vulhub/vulhub/tree/master/saltstack/CVE-2020-16846)|
+| pc5  | ofbiz     | 18.12.15   | 8443,5005              | [Ref](https://github.com/vulhub/vulhub/tree/master/ofbiz/CVE-2024-45195)    |
+| pc6  | ofbiz     | 17.12.01   | 8443,5005              | [Ref](https://github.com/vulhub/vulhub/tree/master/ofbiz/CVE-2020-9496)     |
 
 ## Installation guide
 
 1. clone this repository into your local directory
 
-2. navigate to the directory /Blacksheep/lab and execute this command from within
+2. navigate to the directory /lab and execute this command from within
     ```Bash
     kathara lstart
     ```

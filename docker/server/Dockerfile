@@ -7,7 +7,8 @@ FROM kathara/base
 # installs the Pathfinder's requirements,
 # and builds the magma plugin which is needed for the web UI to work
 RUN curl -fsSL https://deb.nodesource.com/setup_current.x | bash - \
-    && apt install nodejs nmap -y \
+    && apt update \
+    && apt install nodejs nmap golang -y \
     && apt clean \
     && rm -rf /tmp/* /var/lib/apt/lists/* /var/tmp \
     && git clone https://github.com/mitre/caldera.git --recursive \
