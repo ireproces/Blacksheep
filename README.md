@@ -32,23 +32,19 @@ Clone this repository into your local directory
 
 ## Usage
 
-1. Navigate to the directory /lab and execute this command from within
+1. Navigate to the directory /lab and execute this commands from within
     ```Bash
-    kathara lstart server
+    kathara lstart
+    kathara lconfig --name server --add A
     ```
+    wait for all hosts to start correctly before executing the second command
 
-2. When the host is up, execute this command from its terminal
+2. Execute this commands from the server host terminal
     ```Bash
-    echo "nameserver 8.8.8.8" > /etc/resolv.conf
+    bash configure_iface.sh
     ```
-    to verify that the operation was successful, execute a ping to google.com
 
 3. Access the address `http://localhost:8888` from your default browser and login as red user - username and password are specified in the file `/lab/server/caldera/conf/local.yml`
-
-4. After verifying that the Caldera homepage is accessible, run this command to start the remaining hosts
-    ```Bash
-    kathara lstart pc1 pc5 pc7 r1 fw r2 r3 pc2 pc4 pc3 pc6 web1
-    ```
 
 5. From the Caldera homepage select the Pathfinder plugin and fill the Scan view fields as follows:  
     - Select a scanner: nmap  
@@ -58,7 +54,7 @@ Clone this repository into your local directory
     - No ping: selected
     - Report name: unique
     
-    Press the button to start the scan and check the output to track its status
+    press the button to start the scan and check the output to track its status
 
 6. Once the scan is complete, go to the Reports view to generate the graph of detected vulnerabilities and download the generated report
 
