@@ -1,0 +1,8 @@
+echo "nameserver 8.8.8.8" > /etc/resolv.conf
+apt update
+apt install -y iproute2 iputils-ping net-tools openvswitch-switch openvpn bridge-utils ebtables vlan tcpdump
+
+ip address add 10.0.0.7/24 dev eth0
+ip route add default via 10.0.0.1 dev eth0
+
+ip route add 11.1.0.0/16 via 10.0.0.1 dev eth0
