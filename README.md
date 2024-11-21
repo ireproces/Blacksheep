@@ -29,9 +29,9 @@ The [CVE-ListV5](https://github.com/CVEProject/cvelistV5) repository and [CAPECL
 * Katharà
 
 ## Installation
-- Clone this repository:
+* Clone this repository:
         `git clone https://github.com/ireproces/Vuln2ATT-CK.git`
-- Clone the cvelistV5 repository into the same directory:
+* Clone the cvelistV5 repository into the same directory:
         `git clone https://github.com/CVEProject/cvelistV5.git`
 
 # User Guide
