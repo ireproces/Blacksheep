@@ -24,20 +24,18 @@ The [CVE-ListV5](https://github.com/CVEProject/cvelistV5) repository and [CAPECL
 | pc7     | ofbiz     | 18.12.09   | 8443,5005              | [Ref](https://github.com/vulhub/vulhub/tree/master/ofbiz/CVE-2023-49070)    |
 
 ## Requirements
-
-    * Any Linux or MacOS
-    * Python 3.12+ (with Pip3)
-    * Katharà
+* Any Linux or MacOS
+* Python 3.12+ (with Pip3)
+* Katharà
 
 ## Installation
-
-    - Clone this repository:
+- Clone this repository:
         `git clone https://github.com/ireproces/Vuln2ATT-CK.git`
-    - Clone the cvelistV5 repository into the same directory:
+- Clone the cvelistV5 repository into the same directory:
         `git clone https://github.com/CVEProject/cvelistV5.git`
 
-## User Guide
-# Phase 1: Lab Setup 
+# User Guide
+## Phase 1: Lab Setup 
 
 1. STARTS ALL TESTING HOSTS
 Navigate to the directory /lab and execute this commands from within
@@ -53,7 +51,7 @@ Execute this commands from the server host terminal
     bash configure_iface.sh
     ```
 
-# Phase 2: Scans Setup
+## Phase 2: Scans Setup
 
 1. Access the address `http://localhost:8888` from your default browser and login as red user - username and password are specified in the file `/lab/server/caldera/conf/local.yml`
 
@@ -71,7 +69,7 @@ Execute this commands from the server host terminal
 
 4. Move the reports from the current folder to the /reports folder within the Vuln2ATT&CK project - you should already see the `mapper.py` program inside
 
-# Phase 3: Mapping
+## Phase 3: Mapping
 
 1. From the /reports folder, run the command to execute the program
     ```Bash
