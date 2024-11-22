@@ -3,6 +3,7 @@ import yaml
 import json
 import xml.etree.ElementTree as ET
 import re
+from mitreattack.stix20 import MitreAttackData
 
 
 # Function that extracts all CVE-IDs from a single report file
@@ -217,11 +218,7 @@ def get_tts_for_all_cves(cve_cwes_match, cwe_capecs_match, capec_tts_match):
                 raw_tts_ids = capec_tts_match.get(capec_id, [])
                 
                 for tts_id in raw_tts_ids:
-                    if '.' in tts_id:
-                        formatted_tts_id = f"TT{tts_id}"
-                    else:
-                        formatted_tts_id = f"T{tts_id}"
-                    
+                    formatted_tts_id = f"T{tts_id}"
                     tts_ids.add(formatted_tts_id)
         
         if tts_ids:
@@ -229,6 +226,53 @@ def get_tts_for_all_cves(cve_cwes_match, cwe_capecs_match, capec_tts_match):
     
     return output
 
+# Function that maps CVE-IDs to ATT&CK Matrix TTS-IDs and info
+# Args:
+#    capec_tts_match (dict): Mapping of CAPEC-IDs to ATT&CK TTS-IDs
+#    matrix_file_path (str): ATT&CK Matrix file path
+def check_matrix_for_all_cves(cve_tts_match, matrix_file_path):
+
+    output_file="./output.txt"
+
+    mitre_attack_data = MitreAttackData(matrix_file_path)
+
+    techniques = mitre_attack_data.get_techniques(remove_revoked_deprecated=True)
+    subtechniques = mitre_attack_data.get_subtechniques(remove_revoked_deprecated=True)
+
+    technique_dict = {technique['id']: technique for technique in techniques}
+    subtechnique_dict = {subtechnique['id']: subtechnique for subtechnique in subtechniques}
+
+    try:
+
+        with open(output_file, 'w') as file:
+
+            for cve, tts_ids in cve_tts_match.items():
+                file.write(f"Vuln-ID: {cve};\n")
+                print(f"Vuln-ID: {cve}\n")
+        
+                
+                for technique in techniques:
+                    for ref in technique.get('external_references', []):
+                        if ref.get('source_name') == 'mitre-attack':
+                            external_id = ref.get('external_id')
+                            if external_id in tts_ids:
+                                file.write(f"  TTS-ID: {external_id}; Name TTS: {technique.get('name')}; Type: Technique\n")
+                                print(f"TTS-ID: {external_id}; Name: {technique.get('name')}; Type: Technique")
+        
+                for subtechnique in subtechniques:
+                    for ref in subtechnique.get('external_references', []):
+                        if ref.get('source_name') == 'mitre-attack':
+                            external_id = ref.get('external_id')
+                            if external_id in tts_ids:
+                                file.write(f"  TTS-ID: {external_id}; Name TTS: {subtechnique.get('name')}; Type: Subtechnique\n")
+                                print(f"TTS-ID: {external_id}; Name: {subtechnique.get('name')}; Type: Subtechnique")
+                print("\n")
+    
+    except IOError as e:
+        print(f"Errore durante l'apertura o la scrittura nel file: {e}")
+    except Exception as e:
+        print(f"Si è verificato un errore inaspettato: {e}")
+            
 
 # Program entry point
 if __name__ == "__main__":
@@ -236,6 +280,7 @@ if __name__ == "__main__":
     scans_directory = "."
     cves_directory = "./../../cvelistV5/cves"
     capecs_file_path = "./658.xml"
+    matrix_file_path="./enterprise-attack.json"
     
     # Phase 1: Extract all CVE-IDs from the .xml.yml reports of scans
     all_cves = get_all_cves_from_all_scans(scans_directory)
@@ -253,8 +298,6 @@ if __name__ == "__main__":
 
     # Phase 5: Match all TTS-IDs for each CVE-ID
     cve_tts_match = get_tts_for_all_cves(cve_cwes_match, cwe_capecs_match, capec_tts_match)
-
-
-    print("\nMapping of CVE to ATTACK TTS-IDs:")
-    for cve, tts_ids in cve_tts_match.items():
-        print(f"{cve}: {', '.join(tts_ids)}")
+    
+    # Phase 6: Check more info about TTS in the ATT&CK Matrix
+    cve_matrix_match = check_matrix_for_all_cves(cve_tts_match, matrix_file_path)

@@ -74,4 +74,4 @@ Scans can also be performed on individual hosts, provided there is only one .xml
     python3 mapper.py
     ```
 
-The results will be printed in the terminal
+The results will be printed in the terminal, and an output.txt file will be created (or overwritten if it already exists) to facilitate viewing.
