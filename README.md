@@ -1,13 +1,12 @@
 # Vuln2ATT&CK project
 
 Vuln2ATT&CK is designed to analyze the most common vulnerabilities affecting standard services active on network hosts.
-Its goal is to map each vulnerability (CVE) to the techniques or tactics from the ATT&CK matrix used to exploit it. This allows even basic users to understand the security status of their system or network while providing direct references to the best mitigation strategies
+Its goal is to map each vulnerability (CVE) to the techniques or tactics from the ATT&CK matrix used to exploit it. This allows even basic users to understand the security status of their system or network while providing direct references to the best mitigation strategies.
 
-The project includes a lab developed using the [Kathara tool](https://github.com/KatharaFramework/Kathara). The lab hosts an active Caldera server and several other hosts for testing purposes
-
+The project includes a lab developed using the [Kathara tool](https://github.com/KatharaFramework/Kathara), the lab hosts an active Caldera server and several other hosts for testing purposes.
 It utilizes the [MITRE Caldera framework](https://github.com/mitre/caldera), combined with the [Pathfinder plugin](https://github.com/center-for-threat-informed-defense/caldera_pathfinder), to perform scans and collect and data.
 
-The [CVE-ListV5](https://github.com/CVEProject/cvelistV5) repository and [CAPECList](https://capec.mitre.org/index.html) are used as databases for the mappings.
+The [CVE-ListV5](https://github.com/CVEProject/cvelistV5) repository and [CAPECList](https://capec.mitre.org/index.html) are used as databases for the mappings. Finally, the [MITRE Python library](https://github.com/mitre-attack/mitreattack-python) is used for communication with the ATT&CK matrix.
 
 ## Network topology and service table
 
@@ -26,13 +25,25 @@ The [CVE-ListV5](https://github.com/CVEProject/cvelistV5) repository and [CAPECL
 ## Requirements
 * Any Linux or MacOS
 * Python 3.12+ (with Pip3)
-* Katharà
+* [Katharà](https://github.com/KatharaFramework/Kathara/wiki/Installation-Guides)
 
 ## Installation
+All `git clone` MUST be executed in the same directory!
 * Clone this repository:
-        `git clone https://github.com/ireproces/Vuln2ATT-CK.git`
-* Clone the cvelistV5 repository into the same directory:
-        `git clone https://github.com/CVEProject/cvelistV5.git`
+    ```Bash
+    git clone https://github.com/ireproces/Vuln2ATT-CK.git
+    ```
+* Clone the cvelistV5 repository:
+    ```Bash
+    git clone https://github.com/CVEProject/cvelistV5.git
+    ```
+* Clone the mitreattack-python repository:
+    ```Bash
+    git clone https://github.com/mitre-attack/mitreattack-python.git
+    cd mitreattack-python
+    pip install -r requirements-dev.txt
+    pip install mitreattack-python
+    ```
 
 # User Guide
 This guide provides an example of analyzing an entire network. Each scan gathers information about the vulnerabilities (CVEs) of a portion of the network, the mapping program consolidates the CVEs and maps them to the ATT&CK matrix.
