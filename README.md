@@ -39,16 +39,14 @@ This guide provides an example of analysis for a complete network. Each scan per
 Since scans can also be performed on a single host, the project can be used to analyze its vulnerabilities (as long as there is only one .xml.yml scan file for the host in the mapping directory)
 
 ## Phase 1: Lab Setup 
-1. STARTS ALL TESTING HOSTS
-Navigate to the directory /lab and execute this commands from within
+1. STARTS ALL TESTING HOSTS by navigate to the directory /lab and execute this commands from within
     ```Bash
     kathara lstart
     kathara lconfig --name server --add A
     ```
     - wait for all hosts to start correctly before executing the second command
 
-2. SET CALDERA SERVER HOST CONFIGURATION
-Execute this commands from the server host terminal
+2. SET CALDERA SERVER HOST CONFIGURATION by execute this commands from the server host terminal
     ```Bash
     bash configure_iface.sh
     ```
