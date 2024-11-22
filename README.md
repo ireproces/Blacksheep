@@ -35,8 +35,10 @@ The [CVE-ListV5](https://github.com/CVEProject/cvelistV5) repository and [CAPECL
         `git clone https://github.com/CVEProject/cvelistV5.git`
 
 # User Guide
-## Phase 1: Lab Setup 
+This guide provides an example of analysis for a complete network. Each scan performed gathers the vulnerabilities (CVE) of a portion of the network, the mapping program consolidates the total CVEs, providing their mapping to the ATT&CK matrix.
+Since scans can also be performed on a single host, the project can be used to analyze its vulnerabilities (as long as there is only one .xml.yml scan file for the host in the mapping directory)
 
+## Phase 1: Lab Setup 
 1. STARTS ALL TESTING HOSTS
 Navigate to the directory /lab and execute this commands from within
     ```Bash
@@ -52,7 +54,6 @@ Execute this commands from the server host terminal
     ```
 
 ## Phase 2: Scans Setup
-
 1. Access the address `http://localhost:8888` from your default browser and login as red user - username and password are specified in the file `/lab/server/caldera/conf/local.yml`
 
 2. From the Caldera homepage select the Pathfinder plugin and fill the Scan view fields as follows:  
@@ -70,8 +71,9 @@ Execute this commands from the server host terminal
 4. Move the reports from the current folder to the /reports folder within the Vuln2ATT&CK project - you should already see the `mapper.py` program inside
 
 ## Phase 3: Mapping
-
-1. From the /reports folder, run the command to execute the program
+1. From the /mapping folder, run the command to execute the program
     ```Bash
     python3 mapper.py
     ```
+
+Results will be printed on the terminal
