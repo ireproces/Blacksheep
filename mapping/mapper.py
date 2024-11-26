@@ -24,9 +24,7 @@ def extract_cves(file_path):
     except yaml.YAMLError as e:
         print(f"  ERROR: Could not parse YAML file {file_path}: {e}")
     except Exception as e:
-        print(
-            f"  ERROR: Unexpected error while extracting CVE-IDs from {file_path}: {e}"
-        )
+        print(f"  ERROR: Unexpected error while extracting CVE-IDs from {file_path}: {e}")
 
     return output
 
@@ -89,14 +87,25 @@ def get_all_cwes_for_all_cves(cves, directory):
 
             cwe_ids = set()
 
-            problem_types = (
-                cve_data.get("containers", {}).get("cna", {}).get("problemTypes", [])
-            )
-            for problem_type in problem_types:
-                for description in problem_type.get("descriptions", []):
-                    cwe_id = description.get("cweId")
-                    if cwe_id:
-                        cwe_ids.add(cwe_id)
+            containers = cve_data.get("containers", {})
+            for container_key, container_value in containers.items():
+
+                if isinstance(container_value, list):
+                    for entry in container_value:
+                        problem_types = entry.get("problemTypes", [])
+                        for problem_type in problem_types:
+                            for description in problem_type.get("descriptions", []):
+                                cwe_id = description.get("cweId")
+                                if cwe_id:
+                                    cwe_ids.add(cwe_id)
+
+                elif isinstance(container_value, dict):
+                    problem_types = container_value.get("problemTypes", [])
+                    for problem_type in problem_types:
+                        for description in problem_type.get("descriptions", []):
+                            cwe_id = description.get("cweId")
+                            if cwe_id:
+                                cwe_ids.add(cwe_id)
 
             if cwe_ids:
                 output[cve] = list(cwe_ids)
@@ -138,9 +147,7 @@ def get_capec_for_all_cwes(cwes, file_path):
     tree = ET.parse(file_path)
     root = tree.getroot()
 
-    for attack_pattern in root.findall(
-        ".//capec:Attack_Patterns/capec:Attack_Pattern", ns
-    ):
+    for attack_pattern in root.findall(".//capec:Attack_Patterns/capec:Attack_Pattern", ns):
         capec_id = attack_pattern.attrib.get("ID")
 
         related_weaknesses = attack_pattern.findall(".//capec:Related_Weakness", ns)
@@ -298,22 +305,32 @@ if __name__ == "__main__":
 
     # Phase 1: Extract all CVE-IDs from the .xml.yml reports of scans
     all_cves = get_all_cves_from_all_scans(scans_directory)
+    # print("\nFUNC: get_all_cves_from_all_scans")
+    # print(*all_cves, sep="\n")
 
     # Phase 2: Search for matching CWE-IDs in the CVE-List directory
     cve_cwes_match = get_all_cwes_for_all_cves(all_cves, cves_directory)
+    # print("\nFUNC: get_all_cwes_for_all_cves")
+    # for cve, cwes in cve_cwes_match.items():
+    #     cwes_formatted = ", ".join(cwes)
+    #     print(f"{cve}: [{cwes_formatted}]")
 
     # Phase 3: Search for matching CWE-IDs in the CAPEC-List.xml file
     all_cwes = extract_cwes(cve_cwes_match)
     cwe_capecs_match = get_capec_for_all_cwes(all_cwes, capecs_file_path)
+    # print("\nFUNC: get_capec_for_all_cwes")
+    # for cwe, capecs in cwe_capecs_match.items():
+    #     capecs_formatted = ", ".join(capecs)
+    #     print(f"{cwe}: [{capecs_formatted}]")
 
     # Phase 4: Search for all T-IDs for each CAPEC-IDs in the CAPEC-List.xml file
     all_capecs = extract_capecs(cwe_capecs_match)
     capec_tts_match = get_tts_for_all_capecs(all_capecs, capecs_file_path)
+    # print("\nFUNC: get_tts_for_all_capecs")
+    # for capec, tts in capec_tts_match.items():
+    #     tts_formatted = ", ".join(tts)
+    #     print(f"{capec}: [{tts_formatted}]")
 
     # Phase 5: Match all T-IDs for each CVE-ID
-    cve_tts_match = get_tts_for_all_cves(
-        cve_cwes_match, cwe_capecs_match, capec_tts_match
-    )
-
-    # Phase 6: Check for more info about TXXXX in the ATT&CK Matrix
+    cve_tts_match = get_tts_for_all_cves(cve_cwes_match, cwe_capecs_match, capec_tts_match)
     cve_matrix_match = check_matrix_for_all_cves(cve_tts_match, matrix_file_path)
