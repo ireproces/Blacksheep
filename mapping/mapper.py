@@ -268,24 +268,16 @@ def check_matrix_for_all_cves(cve_tts_match, matrix_file_path):
                         if ref.get("source_name") == "mitre-attack":
                             external_id = ref.get("external_id")
                             if external_id in tts_ids:
-                                file.write(
-                                    f"  Type: Technique; ID: {external_id}; Name: {technique.get('name')}\n"
-                                )
-                                print(
-                                    f"  Type: Technique; ID: {external_id}; Name: {technique.get('name')}"
-                                )
+                                file.write(f"  Type: Technique; ID: {external_id}; Name: {technique.get('name')}\n")
+                                print(f"  Type: Technique; ID: {external_id}; Name: {technique.get('name')}")
 
                 for subtechnique in subtechniques:
                     for ref in subtechnique.get("external_references", []):
                         if ref.get("source_name") == "mitre-attack":
                             external_id = ref.get("external_id")
                             if external_id in tts_ids:
-                                file.write(
-                                    f"  Type: Subtechnique; ID: {external_id}; Name TTS: {subtechnique.get('name')}\n"
-                                )
-                                print(
-                                    f"  Type: Subtechnique; ID: {external_id}; Name: {subtechnique.get('name')}"
-                                )
+                                file.write(f"  Type: Subtechnique; ID: {external_id}; Name: {subtechnique.get('name')}\n")
+                                print(f"  Type: Subtechnique; ID: {external_id}; Name: {subtechnique.get('name')}")
                 print("\n")
                 file.write("\n")
 
